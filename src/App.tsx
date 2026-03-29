@@ -45,15 +45,11 @@ Rules:
 Write ONLY the roast. Nothing else.`;
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          messages: [{ role: "user", content: prompt }],
-        }),
-      });
+     const res = await fetch("/api/roast", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ prompt }),
+});
       const data = await res.json();
       const text: string = data.content?.map((b: { text?: string }) => b.text || "").join("") || "The AI refused. Even robots pity you.";
       setRoast(text);
